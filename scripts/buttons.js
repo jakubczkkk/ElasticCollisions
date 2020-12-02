@@ -13,6 +13,5 @@ function addBall() {
 let balls = new BallsCollection();
 
 window.onload = function () {
-    balls.add(new Ball(10, 10));
-    setInterval(balls.draw, 50);
+    setInterval(balls.draw, 10);
 }
