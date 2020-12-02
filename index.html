@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>ElasticCollisions</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/Ball.js"></script>
+    <script src="scripts/buttons.js"></script>
 </head>
 <body>
+
+    <div id="board">
+        <canvas id="canvas" width="600px" height="600xp"></canvas>
+    </div>
+
+    <div id="menu">
+        <navbar>
+
+        </navbar>
+        <div id="newBall">
+            Radius
+            <input id="radiusInput" type="text">
+            Mass
+            <input id="massInput" type="text">
+            <button onclick="addBall()">New ball</button>
+        </div>
+    </div>
 
 </body>
 </html>
