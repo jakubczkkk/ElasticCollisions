@@ -22,4 +22,24 @@ body {
 
 #menu {
     background-color: yellow;
+    display: grid;
+    grid-template-rows: 60px auto;
+}
+
+#nav {
+    background-color: lightyellow;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#randomizeV {
+    display: none;
+}
+
+.option {
+    margin: auto;
+}
+
+.optionDiv {
+    margin: auto;
 }

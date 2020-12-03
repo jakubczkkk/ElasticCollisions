@@ -14,15 +14,28 @@
     </div>
 
     <div id="menu">
-        <navbar>
-
-        </navbar>
-        <div id="newBall">
+        <nav id="nav">
+            <div onclick="showAddBall()" class="option">Add new ball</div>
+            <div onclick="showRandomizeV()" class="option">Randomize V</div>
+        </nav>
+        <div class="optionDiv" id="addBall">
             Radius
-            <input id="radiusInput" type="text">
-            Mass
-            <input id="massInput" type="text">
-            <button onclick="addBall()">New ball</button>
+            <input id="radiusInput" type="text"><br>
+<!--            Mass-->
+<!--            <input id="massInput" type="text"><br>-->
+            X start
+            <input id="xStartInput" type="text"><br>
+            Y start
+            <input id="yStartInput" type="text"><br>
+            V_X start
+            <input id="vxStartInput" type="text"><br>
+            V_Y start
+            <input id="vyStartInput" type="text"><br>
+            <button onclick="addBall()">New ball</button><br>
+            <button onclick="addRandomBall()">New random ball</button>
+        </div>
+        <div class="optionDiv" id="randomizeV">
+            <button onclick="randomizeV()">Randomize V</button>
         </div>
     </div>
 
