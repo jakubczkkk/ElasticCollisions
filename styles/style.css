@@ -1,4 +1,6 @@
 body {
+    font-family: 'Righteous', serif;
+    color: #111111;
     display: grid;
     grid-template-columns: 700px auto;
     height: 100vh;
@@ -8,7 +10,7 @@ body {
 
 #board {
     position: relative;
-    background-color: red;
+    background: #081D6C;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,29 +19,61 @@ body {
 #canvas {
     position: absolute;
     display: inline;
-    background-color: lightcoral;
+    background: #8599E5;
 }
 
 #menu {
-    background-color: yellow;
+    background: #FCFF36;
     display: grid;
-    grid-template-rows: 60px auto;
+    grid-template-rows: 120px auto;
 }
 
 #nav {
-    background-color: lightyellow;
+    background: white;
     display: grid;
     grid-template-columns: 50% 50%;
 }
 
-#randomizeV {
+.option:first-child {
+    background: #FFAD36;
+}
+
+#randomizeV, #getHelp, #clearBoard {
     display: none;
 }
 
 .option {
-    margin: auto;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: stretch;
+    text-transform: uppercase;
+}
+
+.option:hover {
+    border: 4px solid #FFAD36;
+    font-size: 18px;
 }
 
 .optionDiv {
     margin: auto;
+}
+
+input, button {
+    /*max-height: 50px;*/
+    background: white;
+    font-size: 20px;
+    text-transform: uppercase;
+    margin: 6px;
+    padding: 6px;
+    width: 240px;
+    border-radius: 10px;
+    font-family: 'Righteous', serif;
+    border-width: 0;
+}
+
+button:hover {
+    border: 4px solid #FFAD36;
+    font-size: 18px;
 }

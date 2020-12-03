@@ -37,15 +37,67 @@ function randomizeV() {
     });
 }
 
+function clearBoard() {
+    balls.ballsList = [];
+}
+
 function showAddBall() {
     document.getElementById("addBall").style.display = "block";
+    document.getElementById("showAddBall").style.background = "#FFAD36";
+
     document.getElementById("randomizeV").style.display = "none";
+    document.getElementById("showRandomizeV").style.background = "white";
+
+    document.getElementById("clearBoard").style.display = "none";
+    document.getElementById("showClear").style.background = "white";
+
+    document.getElementById("getHelp").style.display = "none";
+    document.getElementById("showHelp").style.background = "white";
+
 }
 
 function showRandomizeV() {
     document.getElementById("addBall").style.display = "none";
+    document.getElementById("showAddBall").style.background = "white";
+
     document.getElementById("randomizeV").style.display = "block";
+    document.getElementById("showRandomizeV").style.background = "#FFAD36";
+
+    document.getElementById("clearBoard").style.display = "none";
+    document.getElementById("showClear").style.background = "white";
+
+    document.getElementById("getHelp").style.display = "none";
+    document.getElementById("showHelp").style.background = "white";
 }
+
+function showClearBoard() {
+    document.getElementById("addBall").style.display = "none";
+    document.getElementById("showAddBall").style.background = "white";
+
+    document.getElementById("randomizeV").style.display = "none";
+    document.getElementById("showRandomizeV").style.background = "white";
+
+    document.getElementById("clearBoard").style.display = "block";
+    document.getElementById("showClear").style.background = "#FFAD36";
+
+    document.getElementById("getHelp").style.display = "none";
+    document.getElementById("showHelp").style.background = "white";
+}
+
+function showHelp() {
+    document.getElementById("addBall").style.display = "none";
+    document.getElementById("showAddBall").style.background = "white";
+
+    document.getElementById("randomizeV").style.display = "none";
+    document.getElementById("showRandomizeV").style.background = "white";
+
+    document.getElementById("clearBoard").style.display = "none";
+    document.getElementById("showClear").style.background = "white";
+
+    document.getElementById("getHelp").style.display = "block";
+    document.getElementById("showHelp").style.background = "#FFAD36";
+}
+
 
 let balls = new BallsCollection();
 

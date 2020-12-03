@@ -3,6 +3,7 @@ class Ball {
     constructor(radius, mass, posX = 10, posY = 10, vX = 5, vY = 5) {
         this.radius = radius;
         this.mass = mass;
+        this.isInCollision = false;
         this.v = {
             x: vX,
             y: vY
@@ -14,6 +15,7 @@ class Ball {
         if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 600 ||
         (this.pos.y - this.radius) <= 0 || (this.pos.y + this.radius) > 600) {
             console.log("bad ball");
+            addRandomBall();
         } else {
             console.log(`ball created`);
             balls.add(this);
@@ -34,10 +36,10 @@ class Ball {
     checkBallCollision(balls) {
 
         balls.forEach(ball => {
-            if (this !== ball && this.isInCollisionArea(ball)) {
+            if (this !== ball && !this.isInCollision && !ball.isInCollision  && this.isInCollisionArea(ball)) {
                 console.log("boom ball");
-                this.v.x *= -1;
-                this.v.y *= -1;
+                this.isInCollision = ball.isInCollision = true;
+                collision(this, ball);
             }
         });
 
@@ -66,6 +68,9 @@ class BallsCollection {
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        balls.ballsList.forEach(ball => ball.isInCollision = false);
+
         balls.ballsList.forEach(ball => {
             ctx.beginPath();
             ctx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, Math.PI*2);
@@ -79,5 +84,12 @@ class BallsCollection {
         });
     }
 
+}
+
+function collision(ball1, ball2) {
+    ball1.v.x *= -1;
+    ball1.v.y *= -1;
+    ball2.v.x *= -1;
+    ball2.v.y *= -1;
 }
 

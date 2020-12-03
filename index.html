@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>ElasticCollisions</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
     <script src="scripts/Ball.js"></script>
     <script src="scripts/buttons.js"></script>
@@ -14,10 +16,14 @@
     </div>
 
     <div id="menu">
+
         <nav id="nav">
-            <div onclick="showAddBall()" class="option">Add new ball</div>
-            <div onclick="showRandomizeV()" class="option">Randomize V</div>
+            <div id="showAddBall" onclick="showAddBall()" class="option">Add new ball</div>
+            <div id="showRandomizeV" onclick="showRandomizeV()" class="option">Randomize Velocity</div>
+            <div id="showClear" onclick="showClearBoard()" class="option">Clear board</div>
+            <div id="showHelp" onclick="showHelp()" class="option">Help</div>
         </nav>
+
         <div class="optionDiv" id="addBall">
             Radius
             <input id="radiusInput" type="text"><br>
@@ -34,9 +40,19 @@
             <button onclick="addBall()">New ball</button><br>
             <button onclick="addRandomBall()">New random ball</button>
         </div>
+
         <div class="optionDiv" id="randomizeV">
             <button onclick="randomizeV()">Randomize V</button>
         </div>
+
+        <div class="optionDiv" id="clearBoard">
+            <button onclick="clearBoard()">Clear board</button>
+        </div>
+
+        <div class="optionDiv" id="getHelp">
+            ...
+        </div>
+
     </div>
 
 </body>
