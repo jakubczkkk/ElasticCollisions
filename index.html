@@ -18,17 +18,19 @@
     <div id="menu">
 
         <nav id="nav">
-            <div id="showAddBall" onclick="showAddBall()" class="option">Add new ball</div>
-            <div id="showRandomizeV" onclick="showRandomizeV()" class="option">Randomize Velocity</div>
-            <div id="showClear" onclick="showClearBoard()" class="option">Clear board</div>
-            <div id="showHelp" onclick="showHelp()" class="option">Help</div>
+            <div id="title">Elastic Collisions</div>
+            <div id="addBallOption" onclick="showOption('addBall')" class="optionButton">Add new ball</div>
+            <div id="randomizeVOption" onclick="showOption('randomizeV')" class="optionButton">Randomize Velocity</div>
+            <div id="pauseBallsOption" onclick="showOption('pauseBalls')" class="optionButton">Pause all balls</div>
+            <div id="resumeBallsOption" onclick="showOption('resumeBalls')" class="optionButton">Resume all Balls</div>
+            <div id="clearBoardOption" onclick="showOption('clearBoard')" class="optionButton">Clear board</div>
+            <div id="helpOption" onclick="showOption('help')" class="optionButton">Help</div>
+
         </nav>
 
-        <div class="optionDiv" id="addBall">
+        <div class="optionDiv" id="addBallDiv">
             Radius
             <input id="radiusInput" type="text"><br>
-<!--            Mass-->
-<!--            <input id="massInput" type="text"><br>-->
             X start
             <input id="xStartInput" type="text"><br>
             Y start
@@ -41,16 +43,24 @@
             <button onclick="addRandomBall()">New random ball</button>
         </div>
 
-        <div class="optionDiv" id="randomizeV">
+        <div class="optionDiv" id="randomizeVDiv">
             <button onclick="randomizeV()">Randomize V</button>
         </div>
 
-        <div class="optionDiv" id="clearBoard">
+        <div class="optionDiv" id="pauseBallsDiv">
+            <button onclick="stopBalls()">Pause balls</button>
+        </div>
+
+        <div class="optionDiv" id="clearBoardDiv">
             <button onclick="clearBoard()">Clear board</button>
         </div>
 
-        <div class="optionDiv" id="getHelp">
-            ...
+        <div class="optionDiv" id="helpDiv">
+            help
+        </div>
+
+        <div class="optionDiv" id="resumeBallsDiv">
+            <button onclick="resumeBalls()">Resume balls</button>
         </div>
 
     </div>

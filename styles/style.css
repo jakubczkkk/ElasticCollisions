@@ -1,6 +1,6 @@
 body {
     font-family: 'Righteous', serif;
-    color: #111111;
+    color: #222222;
     display: grid;
     grid-template-columns: 700px auto;
     height: 100vh;
@@ -25,7 +25,7 @@ body {
 #menu {
     background: #FCFF36;
     display: grid;
-    grid-template-rows: 120px auto;
+    grid-template-rows: 200px auto;
 }
 
 #nav {
@@ -34,15 +34,19 @@ body {
     grid-template-columns: 50% 50%;
 }
 
-.option:first-child {
-    background: #FFAD36;
+#title {
+    background: #ff751a;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: stretch;
+    text-transform: uppercase;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
-#randomizeV, #getHelp, #clearBoard {
-    display: none;
-}
-
-.option {
+.optionButton {
     font-size: 20px;
     display: flex;
     justify-content: center;
@@ -51,17 +55,26 @@ body {
     text-transform: uppercase;
 }
 
-.option:hover {
+#addBallOption {
+    background: #FFAD36;
+    display: flex;
+}
+
+.optionButton:hover {
     border: 4px solid #FFAD36;
     font-size: 18px;
 }
 
 .optionDiv {
+    display: none;
     margin: auto;
 }
 
+#addBallDiv {
+    display: block;
+}
+
 input, button {
-    /*max-height: 50px;*/
     background: white;
     font-size: 20px;
     text-transform: uppercase;

@@ -19,14 +19,30 @@ function getMouseCoords(evt) {
 
 function addRandomBall() {
 
-    new Ball(
-        Math.random() * 40 + 10,
-        0,
-        Math.random() * 500 - 50,
-        Math.random() * 500 - 50,
-        Math.random() * 10 -5,
-        Math.random() * 10 -5
-    );
+    if (balls.ballsList.length <= 15) {
+        new Ball(
+            Math.random() * 40 + 10,
+            0,
+            Math.random() * 600 - 50,
+            Math.random() * 600 - 50,
+            Math.random() * 10 - 5,
+            Math.random() * 10 - 5
+        );
+    } else {
+        alert("Too much ball on board;")
+    }
+
+}
+
+function stopBalls() {
+
+    balls.ballsList.forEach(ball => ball.isPaused = true);
+
+}
+
+function resumeBalls() {
+
+    balls.ballsList.forEach(ball => ball.isPaused = false);
 
 }
 
@@ -41,66 +57,32 @@ function clearBoard() {
     balls.ballsList = [];
 }
 
-function showAddBall() {
-    document.getElementById("addBall").style.display = "block";
-    document.getElementById("showAddBall").style.background = "#FFAD36";
+function showOption(selectedDivId) {
 
-    document.getElementById("randomizeV").style.display = "none";
-    document.getElementById("showRandomizeV").style.background = "white";
+    for (let div of document.getElementsByClassName('optionButton')) {
 
-    document.getElementById("clearBoard").style.display = "none";
-    document.getElementById("showClear").style.background = "white";
+        if (div.id === selectedDivId + 'Option') {
+            div.style.background = "#FFAD36";
+        } else {
+            div.style.background = "white";
+        }
 
-    document.getElementById("getHelp").style.display = "none";
-    document.getElementById("showHelp").style.background = "white";
+    }
+
+    for (let div of document.getElementsByClassName('optionDiv')) {
+
+        if (div.id === selectedDivId + 'Div') {
+            div.style.display = "block";
+        } else {
+            div.style.display = "none";
+        }
+
+    }
 
 }
-
-function showRandomizeV() {
-    document.getElementById("addBall").style.display = "none";
-    document.getElementById("showAddBall").style.background = "white";
-
-    document.getElementById("randomizeV").style.display = "block";
-    document.getElementById("showRandomizeV").style.background = "#FFAD36";
-
-    document.getElementById("clearBoard").style.display = "none";
-    document.getElementById("showClear").style.background = "white";
-
-    document.getElementById("getHelp").style.display = "none";
-    document.getElementById("showHelp").style.background = "white";
-}
-
-function showClearBoard() {
-    document.getElementById("addBall").style.display = "none";
-    document.getElementById("showAddBall").style.background = "white";
-
-    document.getElementById("randomizeV").style.display = "none";
-    document.getElementById("showRandomizeV").style.background = "white";
-
-    document.getElementById("clearBoard").style.display = "block";
-    document.getElementById("showClear").style.background = "#FFAD36";
-
-    document.getElementById("getHelp").style.display = "none";
-    document.getElementById("showHelp").style.background = "white";
-}
-
-function showHelp() {
-    document.getElementById("addBall").style.display = "none";
-    document.getElementById("showAddBall").style.background = "white";
-
-    document.getElementById("randomizeV").style.display = "none";
-    document.getElementById("showRandomizeV").style.background = "white";
-
-    document.getElementById("clearBoard").style.display = "none";
-    document.getElementById("showClear").style.background = "white";
-
-    document.getElementById("getHelp").style.display = "block";
-    document.getElementById("showHelp").style.background = "#FFAD36";
-}
-
 
 let balls = new BallsCollection();
 
 window.onload = function () {
-    setInterval(balls.draw, 10);
+    setInterval(draw, 10);
 }

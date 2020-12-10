@@ -1,9 +1,10 @@
 class Ball {
 
-    constructor(radius, mass, posX = 10, posY = 10, vX = 5, vY = 5) {
+    constructor(radius, posX, posY, vX, vY) {
+
         this.radius = radius;
-        this.mass = mass;
         this.isInCollision = false;
+        this.isPaused = false;
         this.v = {
             x: vX,
             y: vY
@@ -12,14 +13,16 @@ class Ball {
             x: posX,
             y: posY
         }
+
         if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 600 ||
-        (this.pos.y - this.radius) <= 0 || (this.pos.y + this.radius) > 600) {
+            (this.pos.y - this.radius) <= 0 || (this.pos.y + this.radius) > 600) {
             console.log("bad ball");
             addRandomBall();
         } else {
             console.log(`ball created`);
             balls.add(this);
         }
+
     }
 
     checkWallCollision() {
@@ -36,7 +39,7 @@ class Ball {
     checkBallCollision(balls) {
 
         balls.forEach(ball => {
-            if (this !== ball && !this.isInCollision && !ball.isInCollision  && this.isInCollisionArea(ball)) {
+            if (this !== ball && !this.isInCollision && !ball.isInCollision && this.isInCollisionArea(ball)) {
                 console.log("boom ball");
                 this.isInCollision = ball.isInCollision = true;
                 collision(this, ball);
@@ -64,26 +67,6 @@ class BallsCollection {
         this.ballsList.push(ball);
     }
 
-    draw() {
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        balls.ballsList.forEach(ball => ball.isInCollision = false);
-
-        balls.ballsList.forEach(ball => {
-            ctx.beginPath();
-            ctx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, Math.PI*2);
-            ctx.fillStyle = '#111111';
-            ctx.fill();
-            ctx.closePath();
-            ball.pos.x += ball.v.x;
-            ball.pos.y += ball.v.y;
-            ball.checkWallCollision();
-            ball.checkBallCollision(balls.ballsList);
-        });
-    }
-
 }
 
 function collision(ball1, ball2) {
@@ -93,3 +76,26 @@ function collision(ball1, ball2) {
     ball2.v.y *= -1;
 }
 
+function draw() {
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    balls.ballsList.forEach(ball => ball.isInCollision = false);
+
+    balls.ballsList.forEach(ball => {
+        ctx.beginPath();
+        ctx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, Math.PI * 2);
+        ctx.fillStyle = '#222222';
+        ctx.fill();
+        ctx.closePath();
+        if (!ball.isPaused) {
+            ball.pos.x += ball.v.x;
+            ball.pos.y += ball.v.y;
+        }
+        ball.checkWallCollision();
+        ball.checkBallCollision(balls.ballsList);
+    });
+
+}
