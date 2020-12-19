@@ -25,17 +25,18 @@ body {
 #menu {
     background: #FCFF36;
     display: grid;
-    grid-template-rows: 200px auto;
+    grid-template-rows: 125px auto;
 }
 
 #nav {
     background: white;
     display: grid;
+    grid-template-rows: 60% 40%;
     grid-template-columns: 50% 50%;
 }
 
 #title {
-    background: #ff751a;
+    background: #FFAD36;
     font-size: 30px;
     display: flex;
     justify-content: center;
@@ -46,7 +47,7 @@ body {
     grid-column-end: 3;
 }
 
-.optionButton {
+.navButton {
     font-size: 20px;
     display: flex;
     justify-content: center;
@@ -55,23 +56,28 @@ body {
     text-transform: uppercase;
 }
 
-#addBallOption {
+#navButtonOptions {
     background: #FFAD36;
     display: flex;
 }
 
-.optionButton:hover {
+/* .navButton:hover {
     border: 4px solid #FFAD36;
     font-size: 18px;
-}
+} */
 
-.optionDiv {
+.menuDiv {
     display: none;
     margin: auto;
 }
 
-#addBallDiv {
+#menuDivOptions {
     display: block;
+}
+
+#buttonsWrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 input, button {
@@ -80,7 +86,7 @@ input, button {
     text-transform: uppercase;
     margin: 6px;
     padding: 6px;
-    width: 240px;
+    width: 360px;
     border-radius: 10px;
     font-family: 'Righteous', serif;
     border-width: 0;

@@ -1,71 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>ElasticCollisions</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet">
-  <link rel="stylesheet" href="styles/style.css">
-  <script src="scripts/Ball.js"></script>
-  <script src="scripts/buttons.js"></script>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>ElasticCollisions</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="scripts/Ball.js"></script>
+    <script src="scripts/buttons.js"></script>
+  </head>
 
-<body>
+  <body>
 
-  <div id="board">
-    <canvas id="canvas" width="600px" height="600xp"></canvas>
-  </div>
-
-  <div id="menu">
-
-    <nav id="nav">
-      <div id="title">Elastic Collisions</div>
-      <div id="addBallOption" onclick="showOption('addBall')" class="optionButton">Add new ball</div>
-      <div id="randomizeVOption" onclick="showOption('randomizeV')" class="optionButton">Randomize Velocity</div>
-      <div id="pauseBallsOption" onclick="showOption('pauseBalls')" class="optionButton">Pause all balls</div>
-      <div id="resumeBallsOption" onclick="showOption('resumeBalls')" class="optionButton">Resume all Balls</div>
-      <div id="clearBoardOption" onclick="showOption('clearBoard')" class="optionButton">Clear board</div>
-      <div id="helpOption" onclick="showOption('help')" class="optionButton">Help</div>
-    </nav>
-
-    <div class="optionDiv" id="addBallDiv">
-      Radius
-      <input id="radiusInput" type="text"><br>
-      X start
-      <input id="xStartInput" type="text"><br>
-      Y start
-      <input id="yStartInput" type="text"><br>
-      V_X start
-      <input id="vxStartInput" type="text"><br>
-      V_Y start
-      <input id="vyStartInput" type="text"><br>
-      <button onclick="addBall()">New ball</button><br>
-      <button onclick="addRandomBall()">New random ball</button>
+    <div id="board">
+      <canvas id="canvas" width="600px" height="600xp"></canvas>
     </div>
 
-    <div class="optionDiv" id="randomizeVDiv">
-      <button onclick="randomizeV()">Randomize V</button>
+    <div id="menu">
+
+      <nav id="nav">
+        <div id="title">Elastic Collisions</div>
+        <div id="navButtonOptions" onclick="showOptions()" class="navButton">Options</div>
+        <div id="navButtonAbout" onclick="showAbout()" class="navButton">About</div>
+      </nav>
+
+      <div class="menuDiv" id="menuDivOptions">
+        <div id="buttonsWrapper">
+          <button onclick="addBall()">New ball</button>
+          <button onclick="addRandomBall()">New random ball</button>
+          <button onclick="randomizeV()">Randomize V</button>
+          <button onclick="pauseBalls()">Pause balls</button>
+          <button onclick="clearBoard()">Clear board</button>
+          <button onclick="resumeBalls()">Resume balls</button>
+        </div>
+      </div>
+
+      <div class="menuDiv" id="menuDivAbout">
+        XDDD
+      </div>
+
     </div>
 
-    <div class="optionDiv" id="pauseBallsDiv">
-      <button onclick="stopBalls()">Pause balls</button>
-    </div>
-
-    <div class="optionDiv" id="clearBoardDiv">
-      <button onclick="clearBoard()">Clear board</button>
-    </div>
-
-    <div class="optionDiv" id="helpDiv">
-      help
-    </div>
-
-    <div class="optionDiv" id="resumeBallsDiv">
-      <button onclick="resumeBalls()">Resume balls</button>
-    </div>
-
-  </div>
-
-</body>
+  </body>
 
 </html>

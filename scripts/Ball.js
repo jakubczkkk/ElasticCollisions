@@ -3,7 +3,6 @@ class Ball {
     constructor(radius, posX, posY, vX, vY) {
 
         this.radius = radius;
-        this.isInCollision = false;
         this.isPaused = false;
         this.v = {
             x: vX,
@@ -39,9 +38,8 @@ class Ball {
     checkBallCollision(balls) {
 
         balls.forEach(ball => {
-            if (this !== ball && !this.isInCollision && !ball.isInCollision && this.isInCollisionArea(ball)) {
+            if (this !== ball && this.isInCollisionArea(ball)) {
                 console.log("boom ball");
-                this.isInCollision = ball.isInCollision = true;
                 collision(this, ball);
             }
         });
@@ -51,7 +49,7 @@ class Ball {
     isInCollisionArea(ball) {
 
         return Math.sqrt((this.pos.x - ball.pos.x) ** 2 + (this.pos.y - ball.pos.y) ** 2)
-            < (this.radius + ball.radius);
+            <= (this.radius + ball.radius);
 
     }
 
@@ -82,20 +80,29 @@ function draw() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    balls.ballsList.forEach(ball => ball.isInCollision = false);
-
     balls.ballsList.forEach(ball => {
+
+        ball.checkWallCollision();
+        ball.checkBallCollision(balls.ballsList);
+        if (!ball.isPaused) {
+            ball.pos.x += ball.v.x;
+            ball.pos.y += ball.v.y;
+        }
+
         ctx.beginPath();
         ctx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, Math.PI * 2);
         ctx.fillStyle = '#222222';
         ctx.fill();
         ctx.closePath();
-        if (!ball.isPaused) {
-            ball.pos.x += ball.v.x;
-            ball.pos.y += ball.v.y;
-        }
-        ball.checkWallCollision();
-        ball.checkBallCollision(balls.ballsList);
+
     });
+
+    if (isCreatingNewBall) {
+        ctx.beginPath();
+        ctx.fillStyle = '#555555';
+        ctx.arc(newX, newY, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+    }
 
 }

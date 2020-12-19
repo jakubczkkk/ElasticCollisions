@@ -1,19 +1,44 @@
 function addBall() {
 
-    const radius = document.getElementById("radiusInput").value;
+    isCreatingNewBall = true;
+    pauseBalls();
 
-    let posX = Number.parseFloat(document.getElementById("xStartInput").value);
-    let posY = Number.parseFloat(document.getElementById("yStartInput").value);
-
-    const vX = Number.parseFloat(document.getElementById("vxStartInput").value);
-    const vY = Number.parseFloat(document.getElementById("vyStartInput").value);
-
-    new Ball(radius, posX, posY, vX, vY);
+    document.getElementById("canvas").addEventListener(
+        "mousemove",
+        getMouseCoords
+    );
 
 }
 
-function getMouseCoords(evt) {
-    console.log(`${evt.clientX} ${evt.clientY}`);
+function getMouseCoords(e) {
+
+    const rect = document.getElementById("canvas").getBoundingClientRect();
+    newX = e.clientX - rect.left;
+    newY = e.clientY - rect.top;
+
+    document.getElementById("canvas").addEventListener(
+        "click",
+        placeBall
+    )
+}
+
+function placeBall(e) {
+
+    const rect = document.getElementById("canvas").getBoundingClientRect();
+    newX = e.clientX - rect.left;
+    newY = e.clientY - rect.top;
+
+    new Ball(
+        16,
+        newX,
+        newY,
+        2,
+        2
+    );
+
+
+    resumeBalls();
+    isCreatingNewBall = false;
 }
 
 function addRandomBall() {
@@ -32,7 +57,7 @@ function addRandomBall() {
 
 }
 
-function stopBalls() {
+function pauseBalls() {
 
     balls.ballsList.forEach(ball => ball.isPaused = true);
 
@@ -55,31 +80,28 @@ function clearBoard() {
     balls.ballsList = [];
 }
 
-function showOption(selectedDivId) {
+function showOptions() {
 
-    for (let div of document.getElementsByClassName('optionButton')) {
+    document.getElementById("navButtonOptions").style.background = "#FFAD36";
+    document.getElementById("navButtonAbout").style.background = "white";
+    document.getElementById("menuDivOptions").style.display = "block";
+    document.getElementById("menuDivAbout").style.display = "none";
 
-        if (div.id === selectedDivId + 'Option') {
-            div.style.background = "#FFAD36";
-        } else {
-            div.style.background = "white";
-        }
+}
 
-    }
+function showAbout() {
 
-    for (let div of document.getElementsByClassName('optionDiv')) {
-
-        if (div.id === selectedDivId + 'Div') {
-            div.style.display = "block";
-        } else {
-            div.style.display = "none";
-        }
-
-    }
+    document.getElementById("navButtonOptions").style.background = "white";
+    document.getElementById("navButtonAbout").style.background = "#FFAD36";
+    document.getElementById("menuDivOptions").style.display = "none";
+    document.getElementById("menuDivAbout").style.display = "block";
 
 }
 
 let balls = new BallsCollection();
+let isCreatingNewBall = false;
+let newX;
+let newY;
 
 window.onload = function () {
     setInterval(draw, 10);
