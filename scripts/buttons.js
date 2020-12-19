@@ -1,7 +1,6 @@
 function addBall() {
 
     const radius = document.getElementById("radiusInput").value;
-    // const mass = document.getElementById("massInput").value;
 
     let posX = Number.parseFloat(document.getElementById("xStartInput").value);
     let posY = Number.parseFloat(document.getElementById("yStartInput").value);
@@ -9,7 +8,7 @@ function addBall() {
     const vX = Number.parseFloat(document.getElementById("vxStartInput").value);
     const vY = Number.parseFloat(document.getElementById("vyStartInput").value);
 
-    new Ball(radius, 0, posX, posY, vX, vY);
+    new Ball(radius, posX, posY, vX, vY);
 
 }
 
@@ -22,7 +21,6 @@ function addRandomBall() {
     if (balls.ballsList.length <= 15) {
         new Ball(
             Math.random() * 40 + 10,
-            0,
             Math.random() * 600 - 50,
             Math.random() * 600 - 50,
             Math.random() * 10 - 5,
