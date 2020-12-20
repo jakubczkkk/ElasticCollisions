@@ -15,13 +15,10 @@ class Ball {
 
     this.m = Math.PI * this.radius ** 2;
 
-    if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 750 ||
-      (this.pos.y - this.radius) <= 0 || (this.pos.y + this.radius) > 600) {
-      console.log("bad ball");
-      addRandomBall();
-    } else {
-      console.log(`ball created`);
+    if (balls.length <= 16) { 
       balls.push(this);
+    } else {
+      alert("Too much balls on board");
     }
 
   }
@@ -63,11 +60,31 @@ class Ball {
 }
 
 function collision(ball1, ball2) {
-  // ball1.v.x *= -1;
-  // ball1.v.y *= -1;
-  // ball2.v.x *= -1;
-  // ball2.v.y *= -1;
+
+  let res = [ball1.v.x - ball2.v.x, ball1.v.y - ball2.v.y];
+  if (res[0] * (ball2.pos.x - ball1.pos.x) + res[1] * (ball2.pos.y - ball1.pos.y) >= 0) {
+      const m1 = ball1.m
+      const m2 = ball2.m
+      const theta = -Math.atan2(ball2.pos.y - ball1.pos.y, ball2.pos.x - ball1.pos.x);
+      const v1 = rotate([ball1.v.x, ball1.v.y], theta);
+      const v2 = rotate([ball2.v.x, ball2.v.y], theta);
+      const u1 = rotate([v1[0] * (m1 - m2)/(m1 + m2) + v2[0] * 2 * m2/(m1 + m2), v1[1]], -theta);
+      const u2 = rotate([v2[0] * (m2 - m1)/(m1 + m2) + v1[0] * 2 * m1/(m1 + m2), v2[1]], -theta);
+      
+      ball1.v.x = u1[0];
+      ball1.v.y = u1[1];
+      ball2.v.x = u2[0];
+      ball2.v.y = u2[1];
+  }
+
 }
+
+function rotate(v, theta) {
+  return [
+    v[0] * Math.cos(theta) - v[1] * Math.sin(theta),
+    v[0] * Math.sin(theta) + v[1] * Math.cos(theta)
+  ];
+};
 
 function draw() {
 
@@ -93,9 +110,11 @@ function draw() {
 
   });
 
+  newBallColor = isPlaceAvaliable ? AVALIABLE : NOT_ABALIABLE;
+
   if (isCreatingNewBall) {
     ctx.beginPath();
-    ctx.fillStyle = '#555555';
+    ctx.fillStyle = newBallColor;
     ctx.arc(newX, newY, radius, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();

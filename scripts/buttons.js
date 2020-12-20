@@ -5,28 +5,19 @@ function addBall() {
 
   newX = newY = 1000;
 
-  document.getElementById("canvas").addEventListener(
-    "mousemove",
-    getMouseCoords
-  );
-
-  document.getElementById("canvas").addEventListener(
-    "click",
-    placeBall
-  );
-
-  document.getElementById("canvas").addEventListener(
-    "wheel",
-    setRadius
-  );
+  document.getElementById("canvas").addEventListener("mousemove", setPosition);
+  document.getElementById("canvas").addEventListener("wheel", setRadius);
+  document.getElementById("canvas").addEventListener("click", placeBall);
 
 }
 
-function getMouseCoords(e) {
+function setPosition(e) {
 
   const rect = document.getElementById("canvas").getBoundingClientRect();
   newX = e.clientX - rect.left;
   newY = e.clientY - rect.top;
+
+  checkIfAvaliable(newX, newY, radius);
 
 }
 
@@ -42,31 +33,55 @@ function setRadius(e) {
     radius = maxRadius;
   }
 
-  document.getElementById("canvas").addEventListener(
-    "click",
-    placementReady
-  );
+  checkIfAvaliable(newX, newY, radius);
+
+}
+
+function checkIfAvaliable(x, y, radius) {
+
+  isPlaceAvaliable = true;
+
+  if (x - radius <= 0) {
+    isPlaceAvaliable = false;
+  } else if (x + radius >= 750) {
+    isPlaceAvaliable = false;
+  } else if (y - radius <= 0) {
+    isPlaceAvaliable = false;
+  } else if (y + radius >= 600) {
+    isPlaceAvaliable = false;
+  }
+
+  for (let ball of balls) {
+
+    let distance = (ball.radius + radius) ** 2 - (
+      (ball.pos.x - x) ** 2 + (ball.pos.y - y) ** 2
+    );
+
+    if (distance >= 0) {
+      isPlaceAvaliable = false;
+      break;
+    }
+
+  }
 
 }
 
 function placeBall(e) {
 
-  const canvas = document.getElementById("canvas");
-  canvas.removeEventListener("mousemove", getMouseCoords);
-  canvas.removeEventListener("wheel", setRadius);
+  if (isPlaceAvaliable) {
+    const canvas = document.getElementById("canvas");
+    canvas.removeEventListener("mousemove", setPosition);
+    canvas.removeEventListener("wheel", setRadius);
+    canvas.removeEventListener("click", placeBall);
 
-  isSettingVelocity = true;
-  canvas.addEventListener("click", placementReady);
+    vxposition = newX;
+    vyposition = newY;
 
-}
+    isSettingVelocity = true;
 
-function placementReady(e) {
-
-  const canvas = document.getElementById("canvas");
-  canvas.removeEventListener("mousemove", getMouseCoords);
-
-  document.getElementById("canvas").addEventListener("mousemove", setVelocity);
-  document.getElementById("canvas").addEventListener("click", createBall);
+    canvas.addEventListener("mousemove", setVelocity);
+    canvas.addEventListener("click", createBall);
+  }
 
 }
 
@@ -99,8 +114,6 @@ function clean() {
   const canvas = document.getElementById("canvas");
   canvas.removeEventListener("mousemove", setVelocity);
   canvas.removeEventListener("click", createBall);
-  canvas.removeEventListener("click", placeBall);
-  canvas.removeEventListener("click", placementReady);
 
   resumeBalls();
   isCreatingNewBall = false;
@@ -110,21 +123,25 @@ function clean() {
 
 function addRandomBall() {
 
-  const randomRadius = Math.random() * (maxRadius - minRadius) + minRadius;
-  const width = Math.random() * (750 - 2 * randomRadius) + randomRadius;
-  const height = Math.random() * (650 - 2 * randomRadius) + randomRadius;
+  let randomRadius;
+  let width;
+  let height;
 
-  if (balls.ballsList.length <= 15) {
-    new Ball(
-      randomRadius,
-      width,
-      height,
-      Math.random() * 10 - 5,
-      Math.random() * 10 - 5
-    );
-  } else {
-    alert("Too much ball on board;")
+  while (true) {
+
+    randomRadius = Math.random() * (maxRadius - minRadius) + minRadius;
+    width = Math.random() * (750 - 2 * randomRadius) + randomRadius;
+    height = Math.random() * (650 - 2 * randomRadius) + randomRadius;
+
+    checkIfAvaliable(width, height, randomRadius)
+
+    if (isPlaceAvaliable) {
+      break;
+    }
+
   }
+
+  new Ball(randomRadius, width, height, Math.random() * 10 - 5, Math.random() * 10 - 5);
 
 }
 
@@ -170,15 +187,19 @@ function showAbout() {
 
 }
 
+const AVALIABLE = "green";
+const NOT_ABALIABLE = "red";
+let newBallColor = AVALIABLE;
 let balls = [];
 let isCreatingNewBall = false;
 let isSettingVelocity = false;
+let isPlaceAvaliable = true;
 let newX;
 let newY;
 let vx;
 let vy;
-let vxposition;
-let vyposition;
+let vxposition = 0;
+let vyposition = 0;
 const minRadius = 10;
 const maxRadius = 60;
 const defaultRadius = 20;
