@@ -1,98 +1,92 @@
 body {
-    font-family: 'Righteous', serif;
-    color: #222222;
-    display: grid;
-    grid-template-columns: 900px auto;
-    height: 100vh;
-    padding: 0;
-    margin: 0;
+  font-family: 'Righteous', serif;
+  color: #222222;
+  display: grid;
+  grid-template-columns: 950px auto;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
 #board {
-    position: relative;
-    background: #081D6C;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  background: #081D6C;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #canvas {
-    position: absolute;
-    display: inline;
-    background: #8599E5;
+  position: absolute;
+  display: inline;
+  background: #8599E5;
 }
 
 #menu {
-    background: #FCFF36;
-    display: grid;
-    grid-template-rows: 125px auto;
+  background: #FCFF36;
+  display: grid;
+  grid-template-rows: 125px auto;
 }
 
 #nav {
-    background: white;
-    display: grid;
-    grid-template-rows: 60% 40%;
-    grid-template-columns: 50% 50%;
+  background: white;
+  display: grid;
+  grid-template-rows: 60% 40%;
+  grid-template-columns: 50% 50%;
 }
 
 #title {
-    background: #FFAD36;
-    font-size: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-self: stretch;
-    text-transform: uppercase;
-    grid-column-start: 1;
-    grid-column-end: 3;
+  background: #FFAD36;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: stretch;
+  text-transform: uppercase;
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 .navButton {
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    justify-self: stretch;
-    text-transform: uppercase;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: stretch;
+  text-transform: uppercase;
 }
 
 #navButtonOptions {
-    background: #FFAD36;
-    display: flex;
+  background: #FFAD36;
+  display: flex;
 }
 
-/* .navButton:hover {
-    border: 4px solid #FFAD36;
-    font-size: 18px;
-} */
-
 .menuDiv {
-    display: none;
-    margin: auto;
+  display: none;
+  margin: auto;
 }
 
 #menuDivOptions {
-    display: block;
+  display: block;
 }
 
 #buttonsWrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 input, button {
-    background: white;
-    font-size: 20px;
-    text-transform: uppercase;
-    margin: 6px;
-    padding: 6px;
-    width: 360px;
-    border-radius: 10px;
-    font-family: 'Righteous', serif;
-    border-width: 0;
+  background: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 6px;
+  padding: 6px;
+  width: 360px;
+  border-radius: 10px;
+  font-family: 'Righteous', serif;
+  border-width: 0;
 }
 
 button:hover {
-    border: 4px solid #FFAD36;
-    /* font-size: 18px; */
+  border: 4px solid #FFAD36;
 }
