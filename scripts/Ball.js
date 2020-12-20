@@ -43,7 +43,6 @@ class Ball {
 
     balls.forEach(ball => {
       if (this !== ball && this.isInCollisionArea(ball)) {
-        console.log("boom ball");
         collision(this, ball);
       }
     });
@@ -121,10 +120,18 @@ function draw() {
   }
 
   if (isSettingVelocity) {
+
+    const topX = newX - vx * 10;
+    const topY = newY - vy * 10;
+    const theta = Math.PI / 6;
+
     ctx.beginPath();
     ctx.moveTo(newX, newY);
-    ctx.lineTo(vxposition, vyposition);
+    ctx.lineTo(topX, topY);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#ff0000';
     ctx.stroke();
+    
     ctx.closePath();
   }
 

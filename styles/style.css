@@ -2,7 +2,7 @@ body {
   font-family: 'Righteous', serif;
   color: #222222;
   display: grid;
-  grid-template-columns: 950px auto;
+  grid-template-columns: 850px auto;
   height: 100vh;
   padding: 0;
   margin: 0;

@@ -74,8 +74,8 @@ function placeBall(e) {
     canvas.removeEventListener("wheel", setRadius);
     canvas.removeEventListener("click", placeBall);
 
-    vxposition = newX;
-    vyposition = newY;
+    vx = 0;
+    vy = 0;
 
     isSettingVelocity = true;
 
@@ -90,8 +90,20 @@ function setVelocity(e) {
   const rect = document.getElementById("canvas").getBoundingClientRect();
   vxposition = (e.clientX - rect.left);
   vyposition = (e.clientY - rect.top);
-  vx = newX - vxposition;
-  vy = newY - vyposition;
+  vx = (newX - vxposition) / 10;
+  vy = (newY - vyposition) / 10;
+  
+  if (vx < -maxVelocity) {
+    vx = -maxVelocity;
+  } else if (vx > maxVelocity) {
+    vx = maxVelocity;
+  }
+
+  if (vy < -maxVelocity) {
+    vy = -maxVelocity;
+  } else if (vy > maxVelocity) {
+    vy = maxVelocity;
+  }
 
 }
 
@@ -101,8 +113,8 @@ function createBall(e) {
     radius,
     newX,
     newY,
-    vx / 10,
-    vy / 10
+    -vx,
+    -vy
   );
 
   clean();
@@ -141,7 +153,7 @@ function addRandomBall() {
 
   }
 
-  new Ball(randomRadius, width, height, Math.random() * 10 - 5, Math.random() * 10 - 5);
+  new Ball(randomRadius, width, height, Math.random() * 12 - 6, Math.random() * 12 - 6);
 
 }
 
@@ -159,8 +171,8 @@ function resumeBalls() {
 
 function randomizeV() {
   balls.forEach(ball => {
-    ball.v.x = Math.random() * 10 - 5;
-    ball.v.y = Math.random() * 10 - 5;
+    ball.v.x = Math.random() * 12 - 6;
+    ball.v.y = Math.random() * 12 - 6;
   });
 }
 
@@ -204,6 +216,7 @@ const minRadius = 10;
 const maxRadius = 60;
 const defaultRadius = 20;
 let radius = defaultRadius;
+const maxVelocity = 10;
 
 window.onload = function () {
   setInterval(draw, 10);
