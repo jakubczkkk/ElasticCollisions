@@ -3,9 +3,12 @@ function addBall() {
     isCreatingNewBall = true;
     pauseBalls();
 
+    newX = newY = 1000;
+
     document.getElementById("canvas").addEventListener(
         "mousemove",
-        getMouseCoords
+        getMouseCoords,
+        true
     );
 
 }
@@ -18,8 +21,63 @@ function getMouseCoords(e) {
 
     document.getElementById("canvas").addEventListener(
         "click",
-        placeBall
-    )
+        placeBall,
+        true
+    );
+
+    document.getElementById("canvas").addEventListener(
+        "wheel",
+        setRadius,
+        true
+    );
+
+}
+
+function setRadius(e) {
+
+    e.preventDefault();
+
+    radius -= e.deltaY * 0.01
+
+    if (radius < minRadius) {
+        radius = minRadius;
+    } else if (radius > maxRadius) {
+        radius = maxRadius;
+    }
+
+    document.getElementById("canvas").addEventListener(
+        "click",
+        createBall,
+        true
+    );
+
+}
+
+function createBall(e) {
+
+    new Ball(
+        radius,
+        newX,
+        newY,
+        2,
+        2
+    );
+
+    clean();
+
+}
+
+function clean() {
+
+    const canvas = document.getElementById("canvas");
+    canvas.removeEventListener("click", createBall, true);
+    canvas.removeEventListener("click", placeBall, true);
+    canvas.removeEventListener("mousemove", getMouseCoords, true);
+    canvas.removeEventListener("wheel", setRadius, true);
+
+    resumeBalls();
+    isCreatingNewBall = false;
+
 }
 
 function placeBall(e) {
@@ -28,26 +86,20 @@ function placeBall(e) {
     newX = e.clientX - rect.left;
     newY = e.clientY - rect.top;
 
-    new Ball(
-        16,
-        newX,
-        newY,
-        2,
-        2
-    );
-
-
-    resumeBalls();
-    isCreatingNewBall = false;
 }
 
 function addRandomBall() {
 
+    const randomRadius = Math.random() * (maxRadius - minRadius) + minRadius;
+    const canvas = document.getElementById("canvas");
+    const width = Math.random() * (750 - 2 * randomRadius) + randomRadius;
+    const height = Math.random() * (650 - 2 * randomRadius) + randomRadius;
+
     if (balls.ballsList.length <= 15) {
         new Ball(
-            Math.random() * 40 + 10,
-            Math.random() * 600 - 50,
-            Math.random() * 600 - 50,
+            randomRadius,
+            width,
+            height,
             Math.random() * 10 - 5,
             Math.random() * 10 - 5
         );
@@ -95,6 +147,7 @@ function showAbout() {
     document.getElementById("navButtonAbout").style.background = "#FFAD36";
     document.getElementById("menuDivOptions").style.display = "none";
     document.getElementById("menuDivAbout").style.display = "block";
+    console.log(getEventListeners(window))
 
 }
 
@@ -102,7 +155,11 @@ let balls = new BallsCollection();
 let isCreatingNewBall = false;
 let newX;
 let newY;
+const minRadius = 10;
+const maxRadius = 60;
+const defaultRadius = 20;
+let radius = defaultRadius;
 
 window.onload = function () {
     setInterval(draw, 10);
-}
+};

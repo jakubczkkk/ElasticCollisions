@@ -13,7 +13,7 @@ class Ball {
             y: posY
         }
 
-        if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 600 ||
+        if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 750 ||
             (this.pos.y - this.radius) <= 0 || (this.pos.y + this.radius) > 600) {
             console.log("bad ball");
             addRandomBall();
@@ -25,7 +25,7 @@ class Ball {
     }
 
     checkWallCollision() {
-        if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 600) {
+        if ((this.pos.x - this.radius) <= 0 || (this.pos.x + this.radius) >= 750) {
             console.log("boom wall");
             this.v.x *= -1;
         }
@@ -100,7 +100,7 @@ function draw() {
     if (isCreatingNewBall) {
         ctx.beginPath();
         ctx.fillStyle = '#555555';
-        ctx.arc(newX, newY, 20, 0, Math.PI * 2);
+        ctx.arc(newX, newY, radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
     }
