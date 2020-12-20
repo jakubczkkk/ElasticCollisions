@@ -123,16 +123,28 @@ function draw() {
 
     const topX = newX - vx * 10;
     const topY = newY - vy * 10;
-    const theta = Math.PI / 6;
+    const angle = Math.atan2(vy, vx);
 
-    ctx.beginPath();
-    ctx.moveTo(newX, newY);
-    ctx.lineTo(topX, topY);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = '#ff0000';
-    ctx.stroke();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = 'darkred';
+
+    ctx.beginPath();   
+    ctx.moveTo(topX, topY);    
+    ctx.lineTo(newX, newY);  
+    ctx.stroke();    
     
-    ctx.closePath();
+    ctx.beginPath();
+    ctx.translate(topX, topY);
+    ctx.moveTo(0, 0);
+    ctx.rotate(angle);
+    ctx.lineTo(15, 10);
+    ctx.stroke();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(15, -10);
+    ctx.stroke();
+
+    ctx.setTransform(1,0,0,1,0,0);
+
   }
 
 }
