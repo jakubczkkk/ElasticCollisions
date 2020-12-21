@@ -3,6 +3,10 @@ function addBall() {
   isCreatingNewBall = true;
   pauseBalls();
 
+  document.querySelectorAll("button").forEach(
+    button => button.disabled = true
+  );
+
   newX = newY = 1000;
 
   document.getElementById("canvas").addEventListener("mousemove", setPosition);
@@ -92,18 +96,6 @@ function setVelocity(e) {
   vyposition = (e.clientY - rect.top);
   vx = (newX - vxposition) / 10;
   vy = (newY - vyposition) / 10;
-  
-  if (vx < -maxVelocity) {
-    vx = -maxVelocity;
-  } else if (vx > maxVelocity) {
-    vx = maxVelocity;
-  }
-
-  if (vy < -maxVelocity) {
-    vy = -maxVelocity;
-  } else if (vy > maxVelocity) {
-    vy = maxVelocity;
-  }
 
 }
 
@@ -113,8 +105,8 @@ function createBall(e) {
     radius,
     newX,
     newY,
-    -vx,
-    -vy
+    -vx / 2,
+    -vy / 2
   );
 
   clean();
@@ -126,6 +118,10 @@ function clean() {
   const canvas = document.getElementById("canvas");
   canvas.removeEventListener("mousemove", setVelocity);
   canvas.removeEventListener("click", createBall);
+
+  document.querySelectorAll("button").forEach(
+    button => button.disabled = false
+  );
 
   resumeBalls();
   isCreatingNewBall = false;
@@ -180,27 +176,8 @@ function clearBoard() {
   balls = [];
 }
 
-function showOptions() {
-
-  document.getElementById("navButtonOptions").style.background = "#FFAD36";
-  document.getElementById("navButtonAbout").style.background = "white";
-  document.getElementById("menuDivOptions").style.display = "block";
-  document.getElementById("menuDivAbout").style.display = "none";
-
-}
-
-function showAbout() {
-
-  document.getElementById("navButtonOptions").style.background = "white";
-  document.getElementById("navButtonAbout").style.background = "#FFAD36";
-  document.getElementById("menuDivOptions").style.display = "none";
-  document.getElementById("menuDivAbout").style.display = "block";
-  console.log(getEventListeners(window))
-
-}
-
-const AVALIABLE = "green";
-const NOT_ABALIABLE = "red";
+const AVALIABLE = "#2DC241";
+const NOT_ABALIABLE = "#A31919";
 let newBallColor = AVALIABLE;
 let balls = [];
 let isCreatingNewBall = false;
@@ -216,7 +193,6 @@ const minRadius = 10;
 const maxRadius = 60;
 const defaultRadius = 20;
 let radius = defaultRadius;
-const maxVelocity = 10;
 
 window.onload = function () {
   setInterval(draw, 10);

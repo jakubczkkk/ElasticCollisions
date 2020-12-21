@@ -1,47 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <title>ElasticCollisions</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet">
-    <link rel="stylesheet" href="styles/style.css">
-    <script src="scripts/buttons.js"></script>
-    <script src="scripts/Ball.js"></script>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <title>ElasticCollisions</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet">
+  <link rel="stylesheet" href="styles/style.css">
+  <script src="scripts/buttons.js"></script>
+  <script src="scripts/draw.js"></script>
+  <script src="scripts/Ball.js"></script>
+</head>
 
-  <body>
+<body>
 
-    <div id="board">
-      <canvas id="canvas" width="750px" height="600xp"></canvas>
-    </div>
+  <div id="board">
+    <canvas id="canvas" width="750px" height="600xp"></canvas>
+  </div>
 
-    <div id="menu">
+  <div id="main">
 
-      <nav id="nav">
-        <div id="title">Zderzenia sprężyste</div>
-        <div id="navButtonOptions" onclick="showOptions()" class="navButton">Opcje</div>
-        <div id="navButtonAbout" onclick="showAbout()" class="navButton">Jak używać?</div>
-      </nav>
+    <header id="header">
+      Zderzenia sprężyste
+    </header>
 
-      <div class="menuDiv" id="menuDivOptions">
-        <div id="buttonsWrapper">
-          <button onclick="addBall()">nowa kulka</button>
-          <button onclick="addRandomBall()">nowa losowa kulka</button>
-          <button onclick="randomizeV()">ustaw losowe prękości</button>
-          <button onclick="pauseBalls()">zatrzymaj kulki</button>
-          <button onclick="resumeBalls()">wznów kulki</button>
-          <button onclick="clearBoard()">wyczyść planszę</button>
-        </div>
-      </div>
+    <section id="options">
+      <button onclick="addBall()">nowa kulka</button>
+      <button onclick="addRandomBall()">nowa losowa kulka</button>
+      <button onclick="randomizeV()">ustaw losowe prękości</button>
+      <button onclick="pauseBalls()">zatrzymaj kulki</button>
+      <button onclick="resumeBalls()">wznów kulki</button>
+      <button onclick="clearBoard()">wyczyść planszę</button>
+      <button onclick="help()">pomoc</button>
+    </section>
 
-      <div class="menuDiv" id="menuDivAbout">
-        XDDD
-      </div>
+  </div>
 
-    </div>
-
-  </body>
+</body>
 
 </html>
