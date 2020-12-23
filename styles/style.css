@@ -10,7 +10,7 @@ body {
 
 #board {
   position: relative;
-  background: #313638;
+  background: #250346;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,6 +50,7 @@ body {
 button {
   background: #E8E9EB;
   font-size: 20px;
+  color: #250346;
   text-transform: uppercase;
   margin: 6px;
   padding: 6px;
@@ -61,6 +62,6 @@ button {
 
 button:hover {
   border: 5px solid #EF6461;
-  box-shadow: 2px 2px #313638;
+  box-shadow: 2px 2px #250346;
   transform: rotate(5deg) scaleX(1.05) scaleY(1.05);
 }
