@@ -166,19 +166,36 @@ function resumeBalls() {
 }
 
 function randomizeV() {
+
   balls.forEach(ball => {
     ball.v.x = Math.random() * 12 - 6;
     ball.v.y = Math.random() * 12 - 6;
   });
+
 }
 
 function clearBoard() {
+
   balls = [];
+
+}
+
+function help() {
+
+  document.getElementById("options").style.display = "none";
+  document.getElementById("help").style.display = "flex";
+
+}
+
+function returnToOptions() {
+
+  document.getElementById("options").style.display = "flex";
+  document.getElementById("help").style.display = "none";
+
 }
 
 const AVALIABLE = "#2DC241";
 const NOT_ABALIABLE = "#A31919";
-let newBallColor = AVALIABLE;
 let balls = [];
 let isCreatingNewBall = false;
 let isSettingVelocity = false;

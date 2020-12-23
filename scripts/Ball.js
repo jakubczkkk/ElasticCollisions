@@ -69,7 +69,6 @@ function collision(ball1, ball2) {
       const v2 = rotate([ball2.v.x, ball2.v.y], theta);
       const u1 = rotate([v1[0] * (m1 - m2)/(m1 + m2) + v2[0] * 2 * m2/(m1 + m2), v1[1]], -theta);
       const u2 = rotate([v2[0] * (m2 - m1)/(m1 + m2) + v1[0] * 2 * m1/(m1 + m2), v2[1]], -theta);
-      
       ball1.v.x = u1[0];
       ball1.v.y = u1[1];
       ball2.v.x = u2[0];

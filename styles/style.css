@@ -10,7 +10,7 @@ body {
 
 #board {
   position: relative;
-  background: #250346;
+  background: #3c0c4b;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,7 +38,7 @@ body {
   text-transform: uppercase;
 }
 
-#options {
+#options, #help {
   background: #E4B363;
   display: flex;
   flex-direction: column;
@@ -50,7 +50,7 @@ body {
 button {
   background: #E8E9EB;
   font-size: 20px;
-  color: #250346;
+  color: #3c0c4b;
   text-transform: uppercase;
   margin: 6px;
   padding: 6px;
@@ -62,6 +62,20 @@ button {
 
 button:hover {
   border: 5px solid #EF6461;
-  box-shadow: 2px 2px #250346;
+  box-shadow: 2px 2px #3c0c4b;
   transform: rotate(5deg) scaleX(1.05) scaleY(1.05);
+}
+
+#help {
+  display: none;
+}
+
+#helpDiv {
+  color: #3c0c4b;
+  background-color: #E8E9EB;
+  height: 450px;
+  width: 450px;
+  margin: 6px;
+  padding: 6px;
+  border-radius: 10px;
 }
