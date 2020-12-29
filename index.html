@@ -11,6 +11,7 @@
   <script src="scripts/buttons.js"></script>
   <script src="scripts/draw.js"></script>
   <script src="scripts/Ball.js"></script>
+  <script src="scripts/slideshow.js"></script>
 </head>
 
 <body>
@@ -37,9 +38,22 @@
     </section>
 
     <section id="help">
-      <div id="helpDiv">
-        ...
-      </div>
+        <div id="slideshow-container">
+          <a id="prev" class="navigate-button">&#10094;</a>
+          <div class="slide">
+            1) naciśnij przycisk "nowa kulka"
+          </div>
+          <div class="slide">
+            2) ustaw środek kulki w wolnym miejscu tak żeby była podświetlona na zielono
+          </div>
+          <div class="slide">
+            3) możesz użyć scrolla w celu zmiany promienia kulki
+          </div>
+          <div class="slide">
+            4) po ustawieniu kulki na planszy, nadaj jej przy pomocy wektora, prędkość początkową wraz z kierunkiem
+          </div>
+          <a id="next" class="navigate-button" onclick="changeSlide(1)">&#10095;</a>
+        </div>
       <button onclick="returnToOptions()">Powrót</button>
     </section>
 
