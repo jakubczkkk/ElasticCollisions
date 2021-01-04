@@ -3,13 +3,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>ElasticCollisions</title>
+  <title>ZderzeniaSprężyste2D</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Righteous" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap&family=Open+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/style.css">
-  <link rel="icon" href="./images/main.png">
+  <script src="scripts/main.js"></script>
   <script src="scripts/buttons.js"></script>
   <script src="scripts/draw.js"></script>
+  <script src="scripts/collisions.js"></script>
   <script src="scripts/Ball.js"></script>
   <script src="scripts/slideshow.js"></script>
 </head>
@@ -23,36 +24,39 @@
   <div id="main">
 
     <header id="header">
-      <img id="main-icon" src="images/main.png">
       Zderzenia sprężyste 2d
     </header>
 
     <section id="options">
-      <button onclick="addBall()">nowa kulka</button>
-      <button onclick="addRandomBall()">nowa losowa kulka</button>
-      <button onclick="randomizeV()">ustaw losowe prędkości</button>
-      <button onclick="pauseBalls()">zatrzymaj kulki</button>
-      <button onclick="resumeBalls()">wznów kulki</button>
-      <button onclick="clearBoard()">wyczyść planszę</button>
-      <button onclick="help()">pomoc</button>
+      <button onclick="addBall()">Nowa kulka</button>
+      <button onclick="addRandomBall()">Nowa losowa kulka</button>
+      <button onclick="randomizeV()">Ustaw losowe prędkości</button>
+      <button onclick="pauseBalls()">Zatrzymaj kulki</button>
+      <button onclick="resumeBalls()">Wznów kulki</button>
+      <button onclick="clearBoard()">Wyczyść planszę</button>
+      <button onclick="help()">Pomoc</button>
     </section>
 
     <section id="help">
         <div id="slideshow-container">
-          <a id="prev" class="navigate-button">&#10094;</a>
+          <button id="prev" class="navigate-button">&#10094;</button>
           <div class="slide">
-            1) naciśnij przycisk "nowa kulka"
+            <img src="images/step1.png" width=250px height=250px>
+            1) Naciśnij przycisk "Nowa kulka". Możemy anulować dodawanie nowej kulki przy pomocy klawisza ESCAPE.
           </div>
           <div class="slide">
-            2) ustaw środek kulki w wolnym miejscu tak żeby była podświetlona na zielono
+            <img src="images/step2.png" width=250px height=250px>
+            2) Ustaw środek kulki w wolnym miejscu tak żeby była podświetlona na zielono.
           </div>
           <div class="slide">
-            3) możesz użyć scrolla w celu zmiany promienia kulki
+            <img src="images/step3.png" width=250px height=250px>
+            3) Możesz użyć scrolla w celu zmiany promienia kulki.
           </div>
           <div class="slide">
-            4) po ustawieniu kulki na planszy, nadaj jej przy pomocy wektora, prędkość początkową wraz z kierunkiem
+            <img src="images/step4.png" width=250px height=250px>
+            4) Po ustawieniu kulki na planszy, nadaj jej przy pomocy wektora, prędkość początkową wraz z kierunkiem.
           </div>
-          <a id="next" class="navigate-button" onclick="changeSlide(1)">&#10095;</a>
+          <button id="next" class="navigate-button" onclick="changeSlide(1)">&#10095;</button>
         </div>
       <button onclick="returnToOptions()">Powrót</button>
     </section>

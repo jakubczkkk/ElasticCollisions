@@ -1,57 +1,103 @@
+/**
+ * Funkcja służy do dodania nowej kulki.
+ */
 function addBall() {
 
   isCreatingNewBall = true;
+  
+  /*
+    Zatrzymujemy wszystkie kulki i wyłączamy klikanie innyhc przycisków.
+  */
   pauseBalls();
-
   document.querySelectorAll("button").forEach(
     button => button.disabled = true
   );
 
-  newX = newY = 1000;
-
+  /*
+    Pojawiają się cztery EventListenery. Odblokowana zostaje możliwość
+    ustawienia pozycji początkowej, promienia oraz ich zatwierdzenie.
+    Dodatkowo możemy anulować dodawanie naciksając ESCAPE.
+  */
   document.getElementById("canvas").addEventListener("mousemove", setPosition);
   document.getElementById("canvas").addEventListener("wheel", setRadius);
   document.getElementById("canvas").addEventListener("click", placeBall);
+  document.addEventListener("keydown", cancel);
 
 }
 
+
+/**
+ * 
+ * @param {Event} e 
+ * 
+ * Funkcja anuluje dodawanie nowej funkcji po wciśnięciu ESCAPE.
+ */
+function cancel(e) {
+
+  if (e.which === 27) {
+    console.log("click");
+    clean();
+  }
+
+}
+
+
+/**
+ * 
+ * @param {Event} e 
+ * 
+ * Funkcja pobiera współrzędne myszki i zapisuje je jako współrzędne
+ * aktualnie tworzonej kulki.
+ */
 function setPosition(e) {
 
   const rect = document.getElementById("canvas").getBoundingClientRect();
   newX = e.clientX - rect.left;
   newY = e.clientY - rect.top;
 
-  checkIfAvaliable(newX, newY, radius);
+  checkIfAvaliable(newX, newY, newRadius);
 
 }
 
+
+/**
+ * 
+ * @param {Event} e 
+ * 
+ * Funkcja zmienia promień aktualnie tworzonej kulki przy pomocy scrolla w myszce.
+ */
 function setRadius(e) {
 
   e.preventDefault();
 
-  radius -= e.deltaY * 0.01
+  newRadius -= e.deltaY * 0.01
 
-  if (radius < minRadius) {
-    radius = minRadius;
-  } else if (radius > maxRadius) {
-    radius = maxRadius;
+  if (newRadius < minRadius) {
+    newRadius = minRadius;
+  } else if (newRadius > maxRadius) {
+    newRadius = maxRadius;
   }
 
-  checkIfAvaliable(newX, newY, radius);
+  checkIfAvaliable(newX, newY, newRadius);
 
 }
 
+
+/**
+ * Funkcja sprawdza czy kulka nie wychodzi poza ściany canvasa lub
+ * czy nie styka się z kulkami już umieszczonymi.
+ */
 function checkIfAvaliable(x, y, radius) {
 
   isPlaceAvaliable = true;
 
   if (x - radius <= 0) {
     isPlaceAvaliable = false;
-  } else if (x + radius >= 750) {
+  } else if (x + radius >= canvasWidth) {
     isPlaceAvaliable = false;
   } else if (y - radius <= 0) {
     isPlaceAvaliable = false;
-  } else if (y + radius >= 600) {
+  } else if (y + radius >= canvasHeigth) {
     isPlaceAvaliable = false;
   }
 
@@ -70,78 +116,142 @@ function checkIfAvaliable(x, y, radius) {
 
 }
 
+
+/**
+ * 
+ * @param {Event} e 
+ * 
+ * Jeśli kulka znajduje się w dobrym miejscu, funkcja  zatwierdza pozycję
+ * i promień, a następnie umożliwia wykonywanie kolejnych operacji koniecznych
+ * do utworzenia nowej kulki.
+ */
 function placeBall(e) {
 
   if (isPlaceAvaliable) {
+
+    /*
+      Usuwamy możliwość zmiany położenia i promienia.
+    */
     const canvas = document.getElementById("canvas");
     canvas.removeEventListener("mousemove", setPosition);
     canvas.removeEventListener("wheel", setRadius);
     canvas.removeEventListener("click", placeBall);
 
-    vx = 0;
-    vy = 0;
+    /*
+      Ustawiamy prędkości początkowe na 0
+    */
+    newVX = 0;
+    newVY = 0;
 
+    /*
+      Umożliwiamy ustawienie i zatwierdzenie prędkości.
+    */
     isSettingVelocity = true;
-
     canvas.addEventListener("mousemove", setVelocity);
     canvas.addEventListener("click", createBall);
   }
 
 }
 
+
+/**
+ * 
+ * @param {Event} e 
+ * 
+ * Funkcja pobiera współrzędne myszki i na ich podstawie wylicza prędkość.
+ */
 function setVelocity(e) {
 
   const rect = document.getElementById("canvas").getBoundingClientRect();
-  vxposition = (e.clientX - rect.left);
-  vyposition = (e.clientY - rect.top);
-  vx = (newX - vxposition) / 10;
-  vy = (newY - vyposition) / 10;
+  /*
+    Zmienne vXPosition i vYPosition przechowują współrzędne końca myszki.
+    Odejmując te wartość od współrzędnych środka kulki, otrzymujemy długość
+    wektora prędkośći.
+    W celu zmniejszenia wartości wektora prędkości jest podzielony przez 10.
+  */
+  const vXPosition = (e.clientX - rect.left);
+  const vYPosition = (e.clientY - rect.top);
+  newVX = (newX - vXPosition) / 10;
+  newVY = (newY - vYPosition) / 10;
 
 }
 
+
+/**
+ * 
+ * @param {Event} e 
+ * 
+ * Funkcja tworzy nową kulkę.
+ */
 function createBall(e) {
 
   new Ball(
-    radius,
+    newRadius,
     newX,
     newY,
-    -vx / 2,
-    -vy / 2
+    -newVX / 2,
+    -newVY / 2
   );
 
   clean();
 
 }
 
+
+/**
+ * Funkcja sprząta wszystkie pozostałości po dodawaniu kulki.
+ */
 function clean() {
 
+  /*
+    Usuwamy EventListenery.
+  */
   const canvas = document.getElementById("canvas");
   canvas.removeEventListener("mousemove", setVelocity);
   canvas.removeEventListener("click", createBall);
+  canvas.removeEventListener("keydown", cancel);
+  document.removeEventListener("keydown", cancel);
 
+  /*
+    Resetujemy pozycję początkową kulki, żeby przy następnym dodawaniu kulki,
+    nie pojawiała się stara. Wartość 1000 powoduje, że nowa kulka pojawia się
+    "poza canvasem".
+  */
+  newX = newY = 1000;
+
+  /* 
+    Odblokowywujemy guziki i wznawiamy kulki.
+  */
   document.querySelectorAll("button").forEach(
     button => button.disabled = false
   );
-
   resumeBalls();
+
   isCreatingNewBall = false;
   isSettingVelocity = false;
 
 }
 
+
+/**
+ * Funkcja sluży do dodania nowej losowej kulki.
+ */
 function addRandomBall() {
 
   let randomRadius;
   let width;
   let height;
 
+  /*
+    Losujemy parametry, tak długo aż dostaniemy poprawne.
+  */
   while (true) {
 
     randomRadius = Math.random() * (maxRadius - minRadius) + minRadius;
-    width = Math.random() * (750 - 2 * randomRadius) + randomRadius;
-    height = Math.random() * (650 - 2 * randomRadius) + randomRadius;
+    width = Math.random() * (canvasWidth - 2 * randomRadius) + randomRadius;
+    height = Math.random() * (canvasHeigth - 2 * randomRadius) + randomRadius;
 
-    checkIfAvaliable(width, height, randomRadius)
+    checkIfAvaliable(width, height, randomRadius);
 
     if (isPlaceAvaliable) {
       break;
@@ -149,37 +259,57 @@ function addRandomBall() {
 
   }
 
-  new Ball(randomRadius, width, height, Math.random() * 12 - 6, Math.random() * 12 - 6);
+  new Ball(randomRadius, width, height, Math.random() * 10 - 5, Math.random() * 10 - 5);
 
 }
 
+
+/**
+ * Funkcja zatrzymuje wszystkie kulki.
+ */
 function pauseBalls() {
 
   balls.forEach(ball => ball.isPaused = true);
 
 }
 
+
+/**
+ * Funkcja wznawia wszystkie kulki.
+ */
 function resumeBalls() {
 
   balls.forEach(ball => ball.isPaused = false);
 
 }
 
+
+/**
+ * Funkcja zmienia prędkość wszystkich kulek na losową.
+ */
 function randomizeV() {
 
   balls.forEach(ball => {
-    ball.v.x = Math.random() * 12 - 6;
-    ball.v.y = Math.random() * 12 - 6;
+    ball.v.x = Math.random() * 10 - 5;
+    ball.v.y = Math.random() * 10 - 5;
   });
 
 }
 
+
+/**
+ * Funkcja usuwa wszystkie kulki z tablicy balls.
+ */
 function clearBoard() {
 
   balls = [];
 
 }
 
+
+/**
+ * Funkcja pokazuje okienko z pomocą.
+ */
 function help() {
 
   document.getElementById("options").style.display = "none";
@@ -187,30 +317,13 @@ function help() {
 
 }
 
+
+/**
+ * Funkcja zamyka okno z pomocą i powraca do głównego menu.
+ */
 function returnToOptions() {
 
   document.getElementById("options").style.display = "flex";
   document.getElementById("help").style.display = "none";
 
 }
-
-const AVALIABLE = "#2DC241";
-const NOT_ABALIABLE = "#A31919";
-let balls = [];
-let isCreatingNewBall = false;
-let isSettingVelocity = false;
-let isPlaceAvaliable = true;
-let newX;
-let newY;
-let vx;
-let vy;
-let vxposition = 0;
-let vyposition = 0;
-const minRadius = 10;
-const maxRadius = 60;
-const defaultRadius = 20;
-let radius = defaultRadius;
-
-window.onload = function () {
-  setInterval(draw, 10);
-};

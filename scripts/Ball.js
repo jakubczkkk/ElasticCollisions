@@ -1,45 +1,73 @@
+/**
+ * Klasa Ball identyfikuje kulki znajdujące się na planszy.
+ */
 class Ball {
 
+  /**
+   * 
+   * @param {*} radius Promień
+   * @param {*} posX Pozycja początkowa kulki na osi X
+   * @param {*} posY Pozycja początkowa kulki na osi Y
+   * @param {*} vX Prędkość początkowa kulki na osi X
+   * @param {*} vY Prędkość początkowa kulki na osi Y
+   */
   constructor(radius, posX, posY, vX, vY) {
 
     this.radius = radius;
     this.isPaused = false;
-    this.v = {
-      x: vX,
-      y: vY
-    }
     this.pos = {
       x: posX,
       y: posY
-    }
+    };
+    this.v = {
+      x: vX,
+      y: vY
+    };
 
+    /*
+      Przyjmujemy gętość kulki równą 1, więc jej masa to jej pole.
+      (m = P = pi * r * r)
+    */
     this.m = Math.PI * this.radius ** 2;
 
-    if (balls.length <= 16) { 
+    /*
+      Dodajemy nowo utworzoną kulkę do tablicy balls, tylko jeśli
+      nie przekraczamy ich maksymalnego limitu.
+    */
+    if (balls.length <= maxBalls) { 
       balls.push(this);
     } else {
-      alert("Too much balls on board");
+      alert(`Za dużo kulek na planszy. Maksymalnie może ich być ${maxBalls}.`);
     }
 
   }
 
+  /**
+   * Funkcja sprawdza czy doszło do kolizji kulki ze ścianą.
+   * Jeśli tak przyjmujemy że kulka odbija się od niej bez żadnych strat
+   * w energii.
+   */
   wallCollision() {
     if (this.pos.x - this.radius <= 0) {
       this.pos.x = this.radius;
       this.v.x *= -1;
-    } else if (this.pos.x + this.radius >= 750) {
-      this.pos.x = 750 - this.radius;
+    } else if (this.pos.x + this.radius >= canvasWidth) {
+      this.pos.x = canvasWidth - this.radius;
       this.v.x *= -1;
     } else if (this.pos.y - this.radius <= 0) {
       this.pos.y = this.radius;
       this.v.y *= -1;
-    } else if (this.pos.y + this.radius >= 600) {
-      this.pos.y = 600 - this.radius;
+    } else if (this.pos.y + this.radius >= canvasHeigth) {
+      this.pos.y = canvasHeigth - this.radius;
       this.v.y *= -1;
     }
   }
 
-  checkBallCollision(balls) {
+  /**
+   * Funkcja sprawdza czy doszło do kolizi z którąś z innych kulek.
+   * Jeśli tak wywołana zostaje funkcja collision().
+   */
+  checkBallCollision() {
 
     balls.forEach(ball => {
       if (this !== ball && this.isInCollisionArea(ball)) {
@@ -49,38 +77,23 @@ class Ball {
 
   }
 
+
+  /**
+   * 
+   * @param {Ball} ball Kulka z którą sprawdzamy czy nastąpi zderzenie.
+   * @returns {boolean}
+   * 
+   * Funkcja oblicza pomiędzy środkami this i ball. Jeśli jest ona mniejsza
+   * niż suma ich promieni, to następuje zderzenie.
+   */
   isInCollisionArea(ball) {
 
-    return Math.sqrt((this.pos.x - ball.pos.x) ** 2 + (this.pos.y - ball.pos.y) ** 2)
-      <= (this.radius + ball.radius);
+    return (
+      Math.sqrt((this.pos.x - ball.pos.x) ** 2
+              + (this.pos.y - ball.pos.y) ** 2)
+            <= (this.radius + ball.radius)
+    );
 
   }
 
 }
-
-function collision(ball1, ball2) {
-
-  let res = [ball1.v.x - ball2.v.x, ball1.v.y - ball2.v.y];
-  if (res[0] * (ball2.pos.x - ball1.pos.x) + res[1] * (ball2.pos.y - ball1.pos.y) >= 0) {
-      const m1 = ball1.m
-      const m2 = ball2.m
-      const theta = -Math.atan2(ball2.pos.y - ball1.pos.y, ball2.pos.x - ball1.pos.x);
-      const v1 = rotate([ball1.v.x, ball1.v.y], theta);
-      const v2 = rotate([ball2.v.x, ball2.v.y], theta);
-      const u1 = rotate([v1[0] * (m1 - m2)/(m1 + m2) + v2[0] * 2 * m2/(m1 + m2), v1[1]], -theta);
-      const u2 = rotate([v2[0] * (m2 - m1)/(m1 + m2) + v1[0] * 2 * m1/(m1 + m2), v2[1]], -theta);
-      ball1.v.x = u1[0];
-      ball1.v.y = u1[1];
-      ball2.v.x = u2[0];
-      ball2.v.y = u2[1];
-  }
-
-}
-
-function rotate(v, theta) {
-  return [
-    v[0] * Math.cos(theta) - v[1] * Math.sin(theta),
-    v[0] * Math.sin(theta) + v[1] * Math.cos(theta)
-  ];
-};
-
