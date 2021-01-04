@@ -1,5 +1,5 @@
 body {
-  font-style: 'Open Sans';
+  font-family: 'Open Sans';
   display: grid;
   grid-template-columns: 850px auto;
   height: 100vh;
