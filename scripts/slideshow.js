@@ -15,24 +15,20 @@ function changeSlide(n) {
 
   /* 
     Sprawdzamy czy znajdujemy się w pobliżu początku lub końca.
-    Jeśli tak, należy ukryć odpowiednie guziki zmiany slajdu, żeby uniknąć
+    Jeśli tak, należy zablokować odpowiednie guziki zmiany slajdu, żeby uniknąć
     wyjścia poza zakres.
   */ 
   if (currentSlide === slides.length - 1) {
-    document.getElementById("next").onclick = () => {};
-    document.getElementById("next").display = "none";
+    document.getElementById("next").disabled = true;
 
   } if (currentSlide === slides.length - 2) {
-    document.getElementById("next").onclick = () => { changeSlide(1); }
-    document.getElementById("next").display = "block";
+    document.getElementById("next").disabled = false;
 
   } if (currentSlide === 1) {
-    document.getElementById("prev").onclick = () => { changeSlide(-1); }
-    document.getElementById("prev").display = "block";
+    document.getElementById("prev").disabled = false;
 
   } if (currentSlide === 0) {
-    document.getElementById("prev").onclick = () => {};
-    document.getElementById("prev").display = "none";
+    document.getElementById("prev").disabled = true;
   }
 
   /*

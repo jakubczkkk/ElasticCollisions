@@ -14,7 +14,7 @@ const NOT_ABALIABLE = "#A31919";
   Tablica przechowująca wszystkie utworzone kulki.
   Maksymalnie możemy ich przechowywać 20.
 */
-const balls = [];
+let balls = [];
 const maxBalls = 20;
 
 /*
