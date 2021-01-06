@@ -27,7 +27,7 @@ const canvasHeigth = 600;
   Stałe określające dopuszczalne wartości promienia kulek.
    Ponadto zmienna radius przechowuje promień aktualnie wstawianej kulki.
 */
-const minRadius = 5;
+const minRadius = 10;
 const maxRadius = 50;
 const defaultRadius = 15;
 let newRadius = defaultRadius;

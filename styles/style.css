@@ -12,29 +12,30 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #40084b;
+  background-color: #05386B;
 }
 
 #canvas {
   position: absolute;
   display: inline;
   background: #ffeeff;
-  border: 1px solid #40084b;
+  border: 1px solid black;
   box-shadow: 2px 2px 2px 2px #1d0222;
 }
 
 #main {
   display: grid;
-  background: linear-gradient(90deg, rgb(40, 74, 184) 0%, rgb(106, 133, 219) 100%);
   grid-template-rows: 160px auto;
   justify-content: stretch;
 }
 
 #header {
   color:  #ffeeff;
-  font-family: 'Alfa Slab One', serif;
-  font-size: 48px;
-  text-shadow: 3px 3px #40084b;
+  background-color: #379683;
+  font-family: 'Anton', serif;
+  font-size: 40px;
+  letter-spacing: 5px;
+  text-shadow: 3px 3px #1d0222;
   text-transform: uppercase;
   display: flex;
   justify-content: center;
@@ -43,6 +44,7 @@ body {
 }
 
 #options, #help {
+  background-color: #8ee4af;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,21 +57,23 @@ body {
 
 button {
   background: #ffeeff;
-  font-family: 'Alfa Slab One', serif;
+  font-family: 'Anton', serif;
   font-size: 20px;
-  color: #40084b;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #05386B;
   margin: 5px;
   padding: 5px;
   width: 360px;
   border-radius: 10px;
   border-width: 0;
   transition: 0.4s ease;
-  box-shadow: 2px 2px 2px 2px #3563c7;
+  box-shadow: 2px 2px 2px 2px #379683;
 }
 
 button:hover {
   transform: scale(1.05);
-  background: #40084b;
+  background: #05386B;
   color: #ffeeff;
   cursor: pointer;
   box-shadow: 2px 2px 2px 2px #1d0222;
@@ -78,10 +82,10 @@ button:hover {
 button:disabled {
   color: #5e545e;
   background: #b2adb3;
+  box-shadow: 2px 2px 2px 2px #242424;
 }
 
 #slideshow-container {
-  color: #40084b;
   background-color: #ffeeff;
   font-size: 14px;
   height: 425px;
@@ -109,7 +113,7 @@ button:disabled {
 
 img {
   margin-bottom: 10px;
-  border: 2px solid #40084b;
+  border: 2px solid black;
   border-radius: 5px;
 }
 

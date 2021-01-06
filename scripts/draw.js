@@ -34,7 +34,7 @@ function draw() {
     }
 
     ctx.beginPath();
-    ctx.fillStyle = "#050229";
+    ctx.fillStyle = "#05386B";
     ctx.arc(ball.pos.x, ball.pos.y, ball.radius, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();

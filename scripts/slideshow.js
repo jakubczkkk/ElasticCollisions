@@ -9,7 +9,6 @@
 function changeSlide(n) {
 
   currentSlide += n;
-  console.log(currentSlide);
 
   const slides = document.getElementsByClassName("slide");
 
